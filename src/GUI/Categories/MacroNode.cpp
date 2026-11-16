@@ -13,11 +13,7 @@ static std::string tr(std::string key)
 
 static void setMode(bool record, bool play)
 {
-    if (auto m = Module::getByID("macro-recorder"))
-        m->setUserEnabled(record);
-
-    if (auto m = Module::getByID("macro-player"))
-        m->setUserEnabled(play);
+    macroSetMode(record ? 1 : (play ? 2 : 0));
 }
 
 static CCMenuItem* makeBtn(std::string text, const char* bg, CCObject* target, SEL_MenuHandler sel)
@@ -32,49 +28,68 @@ bool MacroNode::init()
     if (!CategoryNode::init())
         return false;
 
+    // menú propio (recibe los toques) con el mismo tamaño que la página
+    auto menu = CCMenu::create();
+    menu->setAnchorPoint(ccp(0, 0));
+    menu->setPosition(ccp(0, 0));
+    menu->setContentSize(getContentSize());
+    menu->setTag(9001);
+    this->addChild(menu, 50);
+
     // todo anclado al borde (el tamaño real se ajusta después), y los botones
     // van directo en este CCMenu para que reciban los toques
     statusLabel = AdvLabelBMFont::createWithString("", "bigFont.fnt");
     statusLabel->setScale(0.45f);
-    this->addChildAtPosition(statusLabel, Anchor::Top, ccp(0, -20));
+    menu->addChildAtPosition(statusLabel, Anchor::Top, ccp(0, -20));
 
     auto off = makeBtn(tr("ui/macro-off"), "GJ_button_06.png", this, menu_selector(MacroNode::onModeOff));
     auto rec = makeBtn(tr("ui/macro-record"), "GJ_button_06.png", this, menu_selector(MacroNode::onModeRecord));
     auto play = makeBtn(tr("ui/macro-play"), "GJ_button_06.png", this, menu_selector(MacroNode::onModePlay));
-    this->addChildAtPosition(off, Anchor::Top, ccp(-85, -55));
-    this->addChildAtPosition(rec, Anchor::Top, ccp(0, -55));
-    this->addChildAtPosition(play, Anchor::Top, ccp(85, -55));
+    menu->addChildAtPosition(off, Anchor::Top, ccp(-85, -55));
+    menu->addChildAtPosition(rec, Anchor::Top, ccp(0, -55));
+    menu->addChildAtPosition(play, Anchor::Top, ccp(85, -55));
 
     nameInput = qolmod::InputNode::create(150, tr("ui/macro-name"));
     nameInput->setFilter("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_ ");
     nameInput->setMaxCharCount(24);
-    this->addChildAtPosition(nameInput, Anchor::Top, ccp(-45, -95));
+    menu->addChildAtPosition(nameInput, Anchor::Top, ccp(-45, -95));
 
     auto save = makeBtn(tr("ui/macro-save"), "GJ_button_01.png", this, menu_selector(MacroNode::onSave));
-    this->addChildAtPosition(save, Anchor::Top, ccp(70, -95));
+    menu->addChildAtPosition(save, Anchor::Top, ccp(70, -95));
 
     selectedLabel = AdvLabelBMFont::createWithString("", "bigFont.fnt");
     selectedLabel->setScale(0.4f);
-    this->addChildAtPosition(selectedLabel, Anchor::Top, ccp(-30, -127));
+    menu->addChildAtPosition(selectedLabel, Anchor::Top, ccp(-30, -127));
 
     auto del = makeBtn(tr("ui/macro-delete"), "GJ_button_06.png", this, menu_selector(MacroNode::onDelete));
-    this->addChildAtPosition(del, Anchor::Top, ccp(80, -127));
+    menu->addChildAtPosition(del, Anchor::Top, ccp(80, -127));
 
     listMenu = CCMenu::create();
     listMenu->setAnchorPoint(ccp(0.5f, 1.f));
     listMenu->setContentSize(ccp(300, 60));
     listMenu->setLayout(RowLayout::create()->setGap(6)->setGrowCrossAxis(true)->setAxisAlignment(AxisAlignment::Center)->setAutoScale(false));
-    this->addChildAtPosition(listMenu, Anchor::Top, ccp(0, -145));
+    menu->addChildAtPosition(listMenu, Anchor::Top, ccp(0, -145));
 
     auto exp = makeBtn(tr("ui/macro-btn-export"), "GJ_button_04.png", this, menu_selector(MacroNode::onExport));
     auto imp = makeBtn(tr("ui/macro-btn-import"), "GJ_button_04.png", this, menu_selector(MacroNode::onImport));
-    this->addChildAtPosition(exp, Anchor::Bottom, ccp(-60, 22));
-    this->addChildAtPosition(imp, Anchor::Bottom, ccp(60, 22));
+    menu->addChildAtPosition(exp, Anchor::Bottom, ccp(-60, 22));
+    menu->addChildAtPosition(imp, Anchor::Bottom, ccp(60, 22));
 
     updateList();
     refresh();
     this->schedule(schedule_selector(MacroNode::update), 0.25f);
     return true;
+}
+
+void MacroNode::setContentSize(const CCSize& size)
+{
+    CategoryNode::setContentSize(size);
+
+    if (auto menu = this->getChildByTag(9001))
+    {
+        menu->setContentSize(size);
+        menu->updateLayout();
+    }
 }
 
 void MacroNode::update(float dt)
@@ -85,15 +100,8 @@ void MacroNode::update(float dt)
 void MacroNode::refresh()
 {
     auto mgr = MacroManager::get();
-    auto rec = Module::getByID("macro-recorder");
-    auto play = Module::getByID("macro-player");
-
-    std::string mode = tr("ui/macro-off");
-
-    if (play && play->getUserEnabled())
-        mode = tr("ui/macro-play");
-    else if (rec && rec->getUserEnabled())
-        mode = tr("ui/macro-record");
+    int m = macroGetMode();
+    std::string mode = tr(m == 2 ? "ui/macro-play" : (m == 1 ? "ui/macro-record" : "ui/macro-off"));
 
     statusLabel->setString(fmt::format("{}  |  {} {}  |  TPS {}", mode, mgr->getInputCount(), tr("ui/macro-inputs"), mgr->getTPS() > 0 ? fmt::format("{}", (int)mgr->getTPS()) : std::string("240")).c_str());
 
@@ -181,12 +189,10 @@ void MacroNode::onDelete(CCObject*)
 
 void MacroNode::onExport(CCObject*)
 {
-    if (auto m = static_cast<ButtonModule*>(Module::getByID("macro-export")))
-        m->onClick();
+    macroExportClick();
 }
 
 void MacroNode::onImport(CCObject*)
 {
-    if (auto m = static_cast<ButtonModule*>(Module::getByID("macro-import")))
-        m->onClick();
+    macroImportClick();
 }

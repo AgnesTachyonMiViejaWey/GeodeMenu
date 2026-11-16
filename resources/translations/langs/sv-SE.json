@@ -28,6 +28,7 @@
     "font": "lexend.fnt",
     "strings": {
         "categories": {
+            "macro": "Macro",
             "level": "Level",
             "universal": "Universal",
             "creator": "Skapare",

@@ -2,7 +2,7 @@
     "display_name_english": "Latin American Spanish",
     "display_name_native": "Español Latino",
     "fallback-lang": "",
-    "font": "lexend.fnt",
+    "font": "bigFont.fnt",
     "alt-font-usage": "Forced",
     "contributors": [
         {
@@ -47,6 +47,7 @@
 ],
     "strings": {
         "categories": {
+            "macro": "Macro",
             "level": "Niveles",
             "universal": "Universal",
             "creator": "Modo editor",

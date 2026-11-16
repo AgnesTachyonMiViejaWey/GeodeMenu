@@ -19,6 +19,7 @@ class MacroNode : public CategoryNode
         CREATE_FUNC(MacroNode)
 
         bool init();
+        virtual void setContentSize(const CCSize& size);
         void update(float dt);
         void updateList();
         void refresh();

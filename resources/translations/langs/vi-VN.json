@@ -48,6 +48,7 @@
     "font": "lexend.fnt",
     "strings": {
         "categories": {
+            "macro": "Macro",
             "level": "Màn chơi",
             "universal": "Toàn cầu",
             "creator": "Sáng tạo",

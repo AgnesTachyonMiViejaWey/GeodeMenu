@@ -17,6 +17,7 @@
     ],
     "strings": {
         "categories": {
+            "macro": "Macro",
             "level": "Maila",
             "universal": "Orokorra",
             "creator": "Sortzailea",

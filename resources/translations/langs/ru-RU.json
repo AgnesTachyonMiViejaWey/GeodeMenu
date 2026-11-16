@@ -80,6 +80,7 @@
     "alt-font-usage": "Forced",
     "strings": {
         "categories": {
+            "macro": "Macro",
             "level": "Уровень",
             "universal": "Прочее",
             "creator": "Редактор Уровней",

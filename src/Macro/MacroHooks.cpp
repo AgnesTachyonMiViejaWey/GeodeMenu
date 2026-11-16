@@ -318,8 +318,7 @@ class $modify (MacroPlayLayer, PlayLayer)
         {
             macroSaveIfRecording(this);
 
-            if (auto m = Module::getByID("macro-recorder"))
-                m->setUserEnabled(false);
+            macroSetMode(0);
 
             m_fields->wasPractice = false;
             return;
@@ -400,3 +399,27 @@ class $modify (MacroPlayLayer, PlayLayer)
         }
     }
 };
+
+void macroSetMode(int mode)
+{
+    MacroRecorder::get()->setUserEnabled(mode == 1);
+    MacroPlayer::get()->setUserEnabled(mode == 2);
+}
+
+int macroGetMode()
+{
+    if (MacroPlayer::get()->getUserEnabled())
+        return 2;
+
+    return MacroRecorder::get()->getUserEnabled() ? 1 : 0;
+}
+
+void macroExportClick()
+{
+    MacroExport::get()->onClick();
+}
+
+void macroImportClick()
+{
+    MacroImport::get()->onClick();
+}

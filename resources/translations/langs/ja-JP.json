@@ -18,6 +18,7 @@
   "font": "kosugimaru.fnt",
   "strings": {
     "categories": {
+        "macro": "Macro",
       "level": "レベル",
       "universal": "全般",
       "creator": "クリエイター",

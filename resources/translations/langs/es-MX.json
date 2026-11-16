@@ -2,7 +2,7 @@
     "display_name_english": "Spanish",
     "display_name_native": "Español",
     "fallback-lang": "",
-    "font": "lexend.fnt",
+    "font": "bigFont.fnt",
     "alt-font-usage": "Forced",
     "contributors": [
         {
@@ -36,6 +36,7 @@
     ],
     "strings": {
         "categories": {
+            "macro": "Macro",
             "level": "Nivel",
             "universal": "Universal",
             "creator": "Creador",

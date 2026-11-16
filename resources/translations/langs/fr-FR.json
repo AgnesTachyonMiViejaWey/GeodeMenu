@@ -28,6 +28,7 @@
     ],
     "strings": {
         "categories": {
+            "macro": "Macro",
             "level": "Jeu",
             "universal": "Universel",
             "creator": "Editeur De Niveaux",

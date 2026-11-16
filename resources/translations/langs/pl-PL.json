@@ -28,6 +28,7 @@
     ],
     "strings": {
         "categories": {
+            "macro": "Macro",
             "level": "Poziom",
             "universal": "Uniwersalne",
             "creator": "Twórca",

@@ -17,6 +17,7 @@
     "font": "bigFont.fnt",
     "strings": {
         "categories": {
+            "macro": "Macro",
             "level": "Level",
             "universal": "Pangkalahatan",
             "creator": "Tagagawa",

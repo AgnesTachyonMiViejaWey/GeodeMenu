@@ -18,6 +18,7 @@
     "font": "lexend.fnt",
     "strings": {
         "categories": {
+            "macro": "Macro",
             "level": "Level, heast",
             "universal": "Für ois",
             "creator": "Bau-Eck",

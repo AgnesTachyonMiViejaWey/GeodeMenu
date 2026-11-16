@@ -48,6 +48,7 @@
     "alt-font-usage": "Forced",
     "strings": {
         "categories": {
+            "macro": "Macro",
             "level": "Рівень",
             "universal": "Загальне",
             "creator": "Редактор",

@@ -17,6 +17,7 @@
 ],
     "strings": {
         "categories": {
+            "macro": "Macro",
             "level": "Nivel",
             "universal": "Universal",
             "creator": "Creador",

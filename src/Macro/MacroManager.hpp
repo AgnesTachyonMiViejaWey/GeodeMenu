@@ -88,3 +88,9 @@ class MacroManager
         std::string serialize();
         bool parse(std::string const& text);
 };
+
+// acciones para la pestaña Macro (definidas en MacroHooks.cpp)
+void macroSetMode(int mode); // 0 apagado, 1 grabar, 2 reproducir
+int macroGetMode();
+void macroExportClick();
+void macroImportClick();

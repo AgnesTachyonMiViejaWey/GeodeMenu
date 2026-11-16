@@ -18,6 +18,7 @@
     "alt-font-usage": "Forced",
     "strings": {
         "categories": {
+            "macro": "Macro",
             "level": "Seviye",
             "universal": "Evrensel",
             "creator": "Yaratıcı",
