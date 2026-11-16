@@ -30,6 +30,16 @@ void MacroManager::setLoadedLevel(int levelID)
     loadedLevel = levelID;
 }
 
+double MacroManager::getTPS()
+{
+    return macroTPS;
+}
+
+void MacroManager::setTPS(double tps)
+{
+    macroTPS = tps;
+}
+
 size_t MacroManager::getInputCount()
 {
     return inputs.size();
@@ -43,8 +53,37 @@ size_t MacroManager::getCursor()
 void MacroManager::clear()
 {
     inputs.clear();
+    checkpoints.clear();
     cursor = 0;
     lastFrame = 0;
+}
+
+void MacroManager::markCheckpoint(const void* checkpoint)
+{
+    checkpoints[checkpoint] = { inputs.size(), cursor };
+}
+
+bool MacroManager::restoreCheckpoint(const void* checkpoint, MacroState state)
+{
+    auto it = checkpoints.find(checkpoint);
+
+    if (it == checkpoints.end())
+        return false;
+
+    if (state == MacroState::Recording)
+    {
+        // volver exactamente al estado del macro cuando se creó el checkpoint
+        if (it->second.first < inputs.size())
+            inputs.resize(it->second.first);
+
+        cursor = std::min(cursor, inputs.size());
+    }
+    else if (state == MacroState::Playback)
+    {
+        cursor = std::min(it->second.second, inputs.size());
+    }
+
+    return true;
 }
 
 void MacroManager::record(unsigned int frame, int button, bool down, bool player1)
@@ -105,7 +144,7 @@ bool MacroManager::save(int levelID)
     if (inputs.empty())
         return false;
 
-    std::string out = "QMACRO 1\n";
+    std::string out = fmt::format("QMACRO 2 {}\n", macroTPS);
 
     for (auto const& input : inputs)
         out += fmt::format("{} {} {} {}\n", input.frame, input.button, input.down ? 1 : 0, input.player1 ? 1 : 0);
@@ -141,11 +180,19 @@ bool MacroManager::load(int levelID)
     std::string header;
     std::getline(stream, header);
 
-    if (header.rfind("QMACRO", 0) != 0)
+    std::istringstream headerStream(header);
+    std::string magic;
+    int version = 1;
+    double tps = 0.0;
+    headerStream >> magic >> version >> tps;
+
+    if (magic != "QMACRO")
     {
         log::error("Macro file for level {} has an invalid header", levelID);
         return false;
     }
+
+    macroTPS = tps;
 
     unsigned int frame = 0;
     int button = 0;

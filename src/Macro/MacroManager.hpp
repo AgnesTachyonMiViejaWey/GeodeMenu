@@ -1,6 +1,8 @@
 #pragma once
 
 #include <Geode/Geode.hpp>
+#include <unordered_map>
+#include <utility>
 #include <vector>
 
 enum class MacroState
@@ -27,6 +29,10 @@ class MacroManager
         unsigned int lastFrame = 0;
         int loadedLevel = -1;
         bool injecting = false;
+        double macroTPS = 0.0;
+
+        // por cada checkpoint de práctica: {inputs grabados, inputs ya reproducidos} al crearlo
+        std::unordered_map<const void*, std::pair<size_t, size_t>> checkpoints = {};
 
     public:
         static MacroManager* get();
@@ -39,6 +45,10 @@ class MacroManager
         int getLoadedLevel();
         void setLoadedLevel(int levelID);
 
+        // TPS con el que se grabó el macro (0 = vanilla / sin TPS bypass)
+        double getTPS();
+        void setTPS(double tps);
+
         size_t getInputCount();
         size_t getCursor();
 
@@ -47,6 +57,10 @@ class MacroManager
         // grabación
         void record(unsigned int frame, int button, bool down, bool player1);
         void truncateFrom(unsigned int frame);
+
+        // checkpoints de modo práctica
+        void markCheckpoint(const void* checkpoint);
+        bool restoreCheckpoint(const void* checkpoint, MacroState state);
 
         // reproducción
         void seek(unsigned int frame);

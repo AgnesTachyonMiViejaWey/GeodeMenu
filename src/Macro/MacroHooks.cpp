@@ -1,5 +1,6 @@
 #include "MacroManager.hpp"
 #include "../Client/Module.hpp"
+#include "../Client/InputModule.hpp"
 #include <Geode/modify/GJBaseGameLayer.hpp>
 #include <Geode/modify/PlayLayer.hpp>
 
@@ -45,6 +46,22 @@ static MacroState currentMacroState()
     return MacroState::None;
 }
 
+// TPS actual del juego: 0 = vanilla (sin TPS bypass)
+static double macroCurrentTPS()
+{
+    auto enabled = Module::getByID("tps-bypass");
+
+    if (!enabled || !enabled->getRealEnabled())
+        return 0.0;
+
+    auto value = static_cast<InputModule*>(Module::getByID("tps-bypass/value"));
+
+    if (!value)
+        return 0.0;
+
+    return (double)value->getStringFloat();
+}
+
 static int macroLevelID(PlayLayer* pl)
 {
     if (!pl || !pl->m_level)
@@ -87,6 +104,7 @@ class $modify (MacroBaseGameLayer, GJBaseGameLayer)
         if (state == MacroState::Recording)
         {
             mgr->setLoadedLevel(macroLevelID(pl));
+            mgr->setTPS(macroCurrentTPS());
             mgr->record(m_gameState.m_currentProgress, button, down, isPlayer1);
         }
     }
@@ -145,18 +163,43 @@ class $modify (MacroPlayLayer, PlayLayer)
         m_fields->label = label;
     }
 
+    void storeCheckpoint(CheckpointObject* checkpoint)
+    {
+        PlayLayer::storeCheckpoint(checkpoint);
+
+        // recordar en qué punto del macro se creó el checkpoint
+        if (currentMacroState() != MacroState::None)
+            MacroManager::get()->markCheckpoint(checkpoint);
+    }
+
     void resetLevel()
     {
         PlayLayer::resetLevel();
 
-        auto mgr = MacroManager::get();
         auto state = currentMacroState();
+
+        if (state == MacroState::None)
+            return;
+
+        auto mgr = MacroManager::get();
         unsigned int frame = m_gameState.m_currentProgress;
 
+        // en modo práctica se reaparece en el último checkpoint
+        CheckpointObject* checkpoint = nullptr;
+
+        if (m_isPracticeMode && m_checkpointArray && m_checkpointArray->count() > 0)
+            checkpoint = static_cast<CheckpointObject*>(m_checkpointArray->lastObject());
+
+        // checkpoint conocido: dejar el macro exactamente como estaba al crearlo
+        if (checkpoint && mgr->restoreCheckpoint(checkpoint, state))
+            return;
+
+        // sin checkpoint conocido: usar el frame al que volvió el nivel
+        // (sin checkpoint es un reinicio completo, así que se borra todo)
         if (state == MacroState::Recording)
-            mgr->truncateFrom(frame);
-        else if (state == MacroState::Playback)
-            mgr->seek(frame);
+            mgr->truncateFrom(checkpoint ? frame : 0);
+        else
+            mgr->seek(checkpoint ? frame : 0);
     }
 
     void levelComplete()
@@ -193,10 +236,14 @@ class $modify (MacroPlayLayer, PlayLayer)
                 break;
 
             case MacroState::Playback:
+            {
+                bool mismatch = mgr->getInputCount() > 0 && mgr->getTPS() != macroCurrentTPS();
+
                 label->setVisible(true);
-                label->setColor({80, 255, 120});
-                label->setString(fmt::format("PLAY  {}/{}", mgr->getCursor(), mgr->getInputCount()).c_str());
+                label->setColor(mismatch ? ccColor3B{255, 190, 60} : ccColor3B{80, 255, 120});
+                label->setString(fmt::format("PLAY  {}/{}{}", mgr->getCursor(), mgr->getInputCount(), mismatch ? "  (TPS distinto)" : "").c_str());
                 break;
+            }
 
             default:
                 label->setVisible(false);
