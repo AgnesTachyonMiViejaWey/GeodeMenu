@@ -171,16 +171,16 @@ bool Speedhack::hasPreset(float value)
 
 FMOD::ChannelGroup* Speedhack::getMasterChannel()
 {
-    // TODO: FIX
+    // no se guarda en caché: si el motor de audio se reinicia, el puntero viejo deja de valer
+    auto fmod = FMODAudioEngine::get();
 
-    static FMOD::ChannelGroup* group = nullptr;
-    // auto fmod = FMODAudioEngine::get();
+    if (!fmod || !fmod->m_system)
+        return nullptr;
 
-    // if (!fmod->m_system)
-        // return nullptr;
+    FMOD::ChannelGroup* group = nullptr;
 
-    // if (!group)
-        // fmod->m_system->getMasterChannelGroup(&group);
+    if (fmod->m_system->getMasterChannelGroup(&group) != FMOD_OK)
+        return nullptr;
 
     return group;
 }

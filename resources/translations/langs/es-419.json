@@ -72,6 +72,12 @@
             "cps": "cps"
         },
         "ui": {
+            "macro-exported": "Macro exportado",
+            "macro-export-empty": "No hay ningún macro para exportar",
+            "macro-export-failed": "No se pudo exportar el macro",
+            "macro-imported": "Macro importado",
+            "macro-import-failed": "No se pudo importar el macro",
+            "macro-import-need-level": "Primero abre un nivel",
             "macro-inputs": "inputs",
             "macro-tps-mismatch": "TPS distinto",
             "coming-soon": "Próximamente",
@@ -276,6 +282,8 @@
             "kCCTransitionPageTurn": "Pasar página"
         },
         "names": {
+            "macro-export": "Exportar Macro",
+            "macro-import": "Importar Macro",
             "macro-recorder": "Grabador de Macros",
             "macro-player": "Reproductor de Macros",
             "internal/open-menu": "Atajo para el menú:",
@@ -562,6 +570,8 @@
 	          "startpos-switcher/layout": "Mover controles"
         },
         "descriptions": {
+            "macro-export": "Guarda el macro actual en un archivo que elijas, para conservarlo o compartirlo",
+            "macro-import": "Carga un archivo de macro y lo guarda para el nivel en el que estás. Abre el nivel primero",
             "macro-recorder": "Graba tus inputs para poder reproducirlos después. Se guarda solo al terminar o salir del nivel. Funciona en modo práctica, incluso con Speedhack",
             "macro-player": "Reproduce el macro guardado de este nivel. Tus propios toques se ignoran mientras está activo. Usa los mismos TPS con los que grabaste",
             "internal/open-menu": "",

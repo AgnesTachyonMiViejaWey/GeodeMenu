@@ -24,9 +24,13 @@ void SpeedhackScheduler::update(float dt)
 
     if (lastPitch != pi)
     {
-        Speedhack::get()->getMasterChannel()->setPitch(pi);
+        // si el motor de audio aún no está listo, se reintenta el siguiente frame
+        if (auto master = Speedhack::get()->getMasterChannel())
+        {
+            master->setPitch(pi);
 
-        lastPitch = pi;
+            lastPitch = pi;
+        }
     }
 
     if (Speedhack::get()->getGameplayEnabled())

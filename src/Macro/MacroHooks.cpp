@@ -1,6 +1,8 @@
 #include "MacroManager.hpp"
 #include "../Client/Module.hpp"
 #include "../Client/InputModule.hpp"
+#include "../Client/ButtonModule.hpp"
+#include "../Notifications/NotificationManager.hpp"
 #include <LocalisationManager.hpp>
 #include <Geode/modify/GJBaseGameLayer.hpp>
 #include <Geode/modify/PlayLayer.hpp>
@@ -35,6 +37,128 @@ class MacroPlayer : public Module
 
 SUBMIT_HACK(MacroRecorder);
 SUBMIT_HACK(MacroPlayer);
+
+static int macroLevelID(PlayLayer* pl);
+
+static void macroToast(std::string key)
+{
+    NotificationManager::get()->notifyToast(LocalisationManager::get()->getLocalisedString(key));
+}
+
+static int macroLevelIDNow()
+{
+    return macroLevelID(PlayLayer::get());
+}
+
+class MacroExport : public ButtonModule
+{
+    public:
+        MODULE_SETUP(MacroExport)
+        {
+            setName("Export Macro");
+            setID("macro-export");
+            setCategory("Level");
+            setDescription("Saves the current macro to a file you choose, so you can keep it or share it");
+        }
+
+        virtual void onClick()
+        {
+            #if GEODE_COMP_GD_VERSION >= 22081
+
+            auto mgr = MacroManager::get();
+
+            // sin nada en memoria: intentar con el macro guardado del nivel actual
+            if (mgr->getInputCount() == 0 && PlayLayer::get())
+            {
+                mgr->load(macroLevelIDNow());
+                mgr->setLoadedLevel(macroLevelIDNow());
+            }
+
+            if (mgr->getInputCount() == 0)
+            {
+                macroToast("ui/macro-export-empty");
+                return;
+            }
+
+            file::FilePickOptions options;
+            options.defaultPath = Mod::get()->getConfigDir() / "macro.qmacro";
+
+            file::FilePickOptions::Filter filter;
+            filter.description = "Macro File";
+            filter.files = { "*.qmacro" };
+            options.filters.push_back(filter);
+
+            async::spawn(file::pick(file::PickMode::SaveFile, options), [](Result<std::optional<asp::fs::Path>> result)
+            {
+                if (!result.isOk() || !result.unwrap().has_value())
+                    return;
+
+                auto path = result.unwrap().value();
+
+                macroToast(MacroManager::get()->exportTo(path) ? "ui/macro-exported" : "ui/macro-export-failed");
+            });
+
+            #endif
+        }
+};
+
+class MacroImport : public ButtonModule
+{
+    public:
+        MODULE_SETUP(MacroImport)
+        {
+            setName("Import Macro");
+            setID("macro-import");
+            setCategory("Level");
+            setDescription("Loads a macro file and saves it for the level you are in. Open the level first");
+        }
+
+        virtual void onClick()
+        {
+            #if GEODE_COMP_GD_VERSION >= 22081
+
+            if (!PlayLayer::get())
+            {
+                macroToast("ui/macro-import-need-level");
+                return;
+            }
+
+            int levelID = macroLevelIDNow();
+
+            file::FilePickOptions options;
+            options.defaultPath = Mod::get()->getConfigDir();
+
+            file::FilePickOptions::Filter filter;
+            filter.description = "Macro File";
+            filter.files = { "*.qmacro" };
+            options.filters.push_back(filter);
+
+            async::spawn(file::pick(file::PickMode::OpenFile, options), [levelID](Result<std::optional<asp::fs::Path>> result)
+            {
+                if (!result.isOk() || !result.unwrap().has_value())
+                    return;
+
+                auto path = result.unwrap().value();
+                auto mgr = MacroManager::get();
+
+                if (mgr->importFrom(path))
+                {
+                    mgr->setLoadedLevel(levelID);
+                    mgr->save(levelID);
+                    macroToast("ui/macro-imported");
+                }
+                else
+                {
+                    macroToast("ui/macro-import-failed");
+                }
+            });
+
+            #endif
+        }
+};
+
+SUBMIT_HACK(MacroExport);
+SUBMIT_HACK(MacroImport);
 
 static MacroState currentMacroState()
 {

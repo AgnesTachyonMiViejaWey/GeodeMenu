@@ -139,18 +139,65 @@ std::vector<MacroInput> MacroManager::takeDue(unsigned int frame)
     return due;
 }
 
-bool MacroManager::save(int levelID)
+std::string MacroManager::serialize()
 {
-    if (inputs.empty())
-        return false;
-
     std::string out = fmt::format("QMACRO 2 {}\n", macroTPS);
 
     for (auto const& input : inputs)
         out += fmt::format("{} {} {} {}\n", input.frame, input.button, input.down ? 1 : 0, input.player1 ? 1 : 0);
 
+    return out;
+}
+
+bool MacroManager::parse(std::string const& text)
+{
+    clear();
+
+    std::istringstream stream(text);
+    std::string header;
+    std::getline(stream, header);
+
+    std::istringstream headerStream(header);
+    std::string magic;
+    int version = 1;
+    double tps = 0.0;
+    headerStream >> magic >> version >> tps;
+
+    if (magic != "QMACRO")
+        return false;
+
+    macroTPS = tps;
+
+    unsigned int frame = 0;
+    int button = 0;
+    int down = 0;
+    int player1 = 0;
+
+    while (stream >> frame >> button >> down >> player1)
+    {
+        MacroInput input;
+        input.frame = frame;
+        input.button = button;
+        input.down = down != 0;
+        input.player1 = player1 != 0;
+
+        inputs.push_back(input);
+    }
+
+    std::stable_sort(inputs.begin(), inputs.end(), [](MacroInput const& a, MacroInput const& b) {
+        return a.frame < b.frame;
+    });
+
+    return !inputs.empty();
+}
+
+bool MacroManager::save(int levelID)
+{
+    if (inputs.empty())
+        return false;
+
     auto path = Mod::get()->getSaveDir() / fmt::format("macro-{}.qmacro", levelID);
-    auto res = file::writeString(path, out);
+    auto res = file::writeString(path, serialize());
 
     if (!res.isOk())
     {
@@ -176,44 +223,30 @@ bool MacroManager::load(int levelID)
     if (!res.isOk())
         return false;
 
-    std::istringstream stream(res.unwrap());
-    std::string header;
-    std::getline(stream, header);
+    bool ok = parse(res.unwrap());
 
-    std::istringstream headerStream(header);
-    std::string magic;
-    int version = 1;
-    double tps = 0.0;
-    headerStream >> magic >> version >> tps;
+    if (ok)
+        log::info("Loaded macro for level {} ({} inputs)", levelID, inputs.size());
+    else
+        log::error("Macro file for level {} is invalid or empty", levelID);
 
-    if (magic != "QMACRO")
-    {
-        log::error("Macro file for level {} has an invalid header", levelID);
+    return ok;
+}
+
+bool MacroManager::exportTo(asp::fs::Path const& path)
+{
+    if (inputs.empty())
         return false;
-    }
 
-    macroTPS = tps;
+    return file::writeString(path, serialize()).isOk();
+}
 
-    unsigned int frame = 0;
-    int button = 0;
-    int down = 0;
-    int player1 = 0;
+bool MacroManager::importFrom(asp::fs::Path const& path)
+{
+    auto res = file::readString(path);
 
-    while (stream >> frame >> button >> down >> player1)
-    {
-        MacroInput input;
-        input.frame = frame;
-        input.button = button;
-        input.down = down != 0;
-        input.player1 = player1 != 0;
+    if (!res.isOk())
+        return false;
 
-        inputs.push_back(input);
-    }
-
-    std::stable_sort(inputs.begin(), inputs.end(), [](MacroInput const& a, MacroInput const& b) {
-        return a.frame < b.frame;
-    });
-
-    log::info("Loaded macro for level {} ({} inputs)", levelID, inputs.size());
-    return !inputs.empty();
+    return parse(res.unwrap());
 }

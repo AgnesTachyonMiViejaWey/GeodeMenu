@@ -73,6 +73,12 @@
             "cps": "кліки на сек"
         },
         "ui": {
+            "macro-exported": "Macro exported",
+            "macro-export-empty": "There is no macro to export",
+            "macro-export-failed": "Could not export the macro",
+            "macro-imported": "Macro imported",
+            "macro-import-failed": "Could not import the macro",
+            "macro-import-need-level": "Open a level first",
             "macro-inputs": "inputs",
             "macro-tps-mismatch": "TPS mismatch",
             "coming-soon": "Незабаром",
@@ -144,6 +150,8 @@
             }
         },
         "names": {
+            "macro-export": "Export Macro",
+            "macro-import": "Import Macro",
             "macro-recorder": "Macro Recorder",
             "macro-player": "Macro Player",
             "internal/open-menu": "Клавіша відкриття меню:",
@@ -313,6 +321,8 @@
             "pitch-shifter/music-only": "Тільки музика"
         },
         "descriptions": {
+            "macro-export": "Saves the current macro to a file you choose, so you can keep it or share it",
+            "macro-import": "Loads a macro file and saves it for the level you are in. Open the level first",
             "macro-recorder": "Records your inputs so they can be replayed later. It saves automatically when you finish or leave the level. Works in practice mode, even with Speedhack",
             "macro-player": "Replays the macro saved for this level. Your own inputs are ignored while it is on. Use the same TPS you recorded with",
             "internal/open-menu": "Відкрити меню модифікацій",

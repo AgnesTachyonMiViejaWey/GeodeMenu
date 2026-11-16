@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Geode/Geode.hpp>
+#include <string>
 #include <unordered_map>
 #include <utility>
 #include <vector>
@@ -69,4 +70,12 @@ class MacroManager
         // archivos (uno por nivel, en la carpeta de guardado del mod)
         bool save(int levelID);
         bool load(int levelID);
+
+        // archivo elegido por el usuario (exportar / importar)
+        bool exportTo(asp::fs::Path const& path);
+        bool importFrom(asp::fs::Path const& path);
+
+    protected:
+        std::string serialize();
+        bool parse(std::string const& text);
 };

@@ -57,6 +57,12 @@
             "fps": "fps"
         },
         "ui": {
+            "macro-exported": "Macro exportado",
+            "macro-export-empty": "No hay ningún macro para exportar",
+            "macro-export-failed": "No se pudo exportar el macro",
+            "macro-imported": "Macro importado",
+            "macro-import-failed": "No se pudo importar el macro",
+            "macro-import-need-level": "Primero abre un nivel",
             "macro-inputs": "inputs",
             "macro-tps-mismatch": "TPS distinto",
             "coming-soon": "Muy Pronto",
@@ -130,6 +136,8 @@
             "override-fine-outline-label": "Sobreescribir Contorno Fino"
         },
         "names": {
+            "macro-export": "Exportar Macro",
+            "macro-import": "Importar Macro",
             "macro-recorder": "Grabador de Macros",
             "macro-player": "Reproductor de Macros",
             "create-custom-rewards": "Crear Premios Customizados",
@@ -317,6 +325,8 @@
             "trail-cutting/fps": "Actualizar FPS:"
         },
         "descriptions": {
+            "macro-export": "Guarda el macro actual en un archivo que elijas, para conservarlo o compartirlo",
+            "macro-import": "Carga un archivo de macro y lo guarda para el nivel en el que estás. Abre el nivel primero",
             "macro-recorder": "Graba tus inputs para poder reproducirlos después. Se guarda solo al terminar o salir del nivel. Funciona en modo práctica, incluso con Speedhack",
             "macro-player": "Reproduce el macro guardado de este nivel. Tus propios toques se ignoran mientras está activo. Usa los mismos TPS con los que grabaste",
             "create-custom-rewards": "Genera un premio que puedes customizar.",
