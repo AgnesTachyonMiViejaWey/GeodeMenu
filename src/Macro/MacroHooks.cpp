@@ -272,6 +272,7 @@ class $modify (MacroPlayLayer, PlayLayer)
     struct Fields
     {
         CCLabelBMFont* label = nullptr;
+        bool wasPractice = false;
     };
 
     void setupHasCompleted()
@@ -311,6 +312,20 @@ class $modify (MacroPlayLayer, PlayLayer)
         PlayLayer::resetLevel();
 
         auto state = currentMacroState();
+
+        // reinicio en modo normal después de práctica: dejar de grabar
+        if (state == MacroState::Recording && m_fields->wasPractice && !m_isPracticeMode)
+        {
+            macroSaveIfRecording(this);
+
+            if (auto m = Module::getByID("macro-recorder"))
+                m->setUserEnabled(false);
+
+            m_fields->wasPractice = false;
+            return;
+        }
+
+        m_fields->wasPractice = m_isPracticeMode;
 
         if (state == MacroState::None)
             return;
