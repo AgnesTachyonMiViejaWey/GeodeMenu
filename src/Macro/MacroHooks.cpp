@@ -16,7 +16,7 @@ class MacroRecorder : public Module
         {
             setName("Macro Recorder");
             setID("macro-recorder");
-            setCategory("Macro");
+            setCategory("MacroHidden");
             setDescription("Records your inputs in the level so they can be replayed later. The macro is saved automatically when you finish or leave the level. If Macro Player is also on, the player wins");
             setSafeModeTrigger(SafeModeTrigger::Attempt);
         }
@@ -29,7 +29,7 @@ class MacroPlayer : public Module
         {
             setName("Macro Player");
             setID("macro-player");
-            setCategory("Macro");
+            setCategory("MacroHidden");
             setDescription("Replays the macro saved for this level. Your own inputs are ignored while it is on");
             setSafeModeTrigger(SafeModeTrigger::Attempt);
         }
@@ -57,7 +57,7 @@ class MacroExport : public ButtonModule
         {
             setName("Export Macro");
             setID("macro-export");
-            setCategory("Macro");
+            setCategory("MacroHidden");
             setDescription("Saves the current macro to a file you choose, so you can keep it or share it");
         }
 
@@ -109,7 +109,7 @@ class MacroImport : public ButtonModule
         {
             setName("Import Macro");
             setID("macro-import");
-            setCategory("Macro");
+            setCategory("MacroHidden");
             setDescription("Loads a macro file and saves it for the level you are in. Open the level first");
         }
 

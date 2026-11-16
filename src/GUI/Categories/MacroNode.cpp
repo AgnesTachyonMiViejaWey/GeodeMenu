@@ -34,7 +34,7 @@ bool MacroNode::init()
 
     // todo anclado al borde (el tamaño real se ajusta después), y los botones
     // van directo en este CCMenu para que reciban los toques
-    statusLabel = CCLabelBMFont::create("", "bigFont.fnt");
+    statusLabel = AdvLabelBMFont::createWithString("", "bigFont.fnt");
     statusLabel->setScale(0.45f);
     this->addChildAtPosition(statusLabel, Anchor::Top, ccp(0, -20));
 
@@ -53,7 +53,7 @@ bool MacroNode::init()
     auto save = makeBtn(tr("ui/macro-save"), "GJ_button_01.png", this, menu_selector(MacroNode::onSave));
     this->addChildAtPosition(save, Anchor::Top, ccp(70, -95));
 
-    selectedLabel = CCLabelBMFont::create("", "bigFont.fnt");
+    selectedLabel = AdvLabelBMFont::createWithString("", "bigFont.fnt");
     selectedLabel->setScale(0.4f);
     this->addChildAtPosition(selectedLabel, Anchor::Top, ccp(-30, -127));
 
@@ -66,10 +66,10 @@ bool MacroNode::init()
     listMenu->setLayout(RowLayout::create()->setGap(6)->setGrowCrossAxis(true)->setAxisAlignment(AxisAlignment::Center)->setAutoScale(false));
     this->addChildAtPosition(listMenu, Anchor::Top, ccp(0, -145));
 
-    auto exp = makeBtn(tr("names/macro-export"), "GJ_button_04.png", this, menu_selector(MacroNode::onExport));
-    auto imp = makeBtn(tr("names/macro-import"), "GJ_button_04.png", this, menu_selector(MacroNode::onImport));
-    this->addChildAtPosition(exp, Anchor::Bottom, ccp(-70, 22));
-    this->addChildAtPosition(imp, Anchor::Bottom, ccp(70, 22));
+    auto exp = makeBtn(tr("ui/macro-btn-export"), "GJ_button_04.png", this, menu_selector(MacroNode::onExport));
+    auto imp = makeBtn(tr("ui/macro-btn-import"), "GJ_button_04.png", this, menu_selector(MacroNode::onImport));
+    this->addChildAtPosition(exp, Anchor::Bottom, ccp(-60, 22));
+    this->addChildAtPosition(imp, Anchor::Bottom, ccp(60, 22));
 
     updateList();
     refresh();

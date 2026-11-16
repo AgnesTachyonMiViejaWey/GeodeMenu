@@ -71,6 +71,8 @@
             "macro-import-need-level": "Open a level first",
             "macro-inputs": "inputs",
             "macro-off": "Off",
+            "macro-btn-export": "Export",
+            "macro-btn-import": "Import",
             "macro-record": "Record",
             "macro-play": "Play",
             "macro-name": "Name",

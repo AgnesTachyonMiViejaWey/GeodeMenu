@@ -65,6 +65,8 @@
             "macro-import-need-level": "Primero abre un nivel",
             "macro-inputs": "inputs",
             "macro-off": "Apagado",
+            "macro-btn-export": "Exportar",
+            "macro-btn-import": "Importar",
             "macro-record": "Grabar",
             "macro-play": "Reproducir",
             "macro-name": "Nombre",

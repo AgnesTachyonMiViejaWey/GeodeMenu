@@ -2,6 +2,7 @@
 
 #include "../../Client/CategoryNode.hpp"
 #include "../InputNode.hpp"
+#include "../../Utils/AdvancedLabel/AdvLabelBMFont.hpp"
 #include <Button.hpp>
 
 using namespace geode::prelude;
@@ -9,8 +10,8 @@ using namespace geode::prelude;
 class MacroNode : public CategoryNode
 {
     protected:
-        CCLabelBMFont* statusLabel = nullptr;
-        CCLabelBMFont* selectedLabel = nullptr;
+        AdvLabelBMFont* statusLabel = nullptr;
+        AdvLabelBMFont* selectedLabel = nullptr;
         CCMenu* listMenu = nullptr;
         qolmod::InputNode* nameInput = nullptr;
 
