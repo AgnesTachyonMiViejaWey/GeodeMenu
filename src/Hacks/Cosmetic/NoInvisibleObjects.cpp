@@ -21,7 +21,7 @@ class NoInvisibleObjects : public Module
 
 SUBMIT_HACK(NoInvisibleObjects);
 
-#if GEODE_COMP_GD_VERSION >= 22081
+#if GEODE_COMP_GD_VERSION >= 22081 && !defined(GEODE_IS_IOS) // iOS has no binding address for updateInvisibleBlock
 
 class $modify (PlayLayer)
 {
