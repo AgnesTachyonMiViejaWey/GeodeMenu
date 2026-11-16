@@ -1,0 +1,35 @@
+#pragma once
+
+#include "../../Client/CategoryNode.hpp"
+#include "../InputNode.hpp"
+#include <Button.hpp>
+
+using namespace geode::prelude;
+
+class MacroNode : public CategoryNode
+{
+    protected:
+        CCLabelBMFont* statusLabel = nullptr;
+        CCLabelBMFont* selectedLabel = nullptr;
+        CCMenu* listMenu = nullptr;
+        qolmod::InputNode* nameInput = nullptr;
+
+    public:
+        CREATE_FUNC(MacroNode)
+
+        bool init();
+        void update(float dt);
+        void updateList();
+        void refresh();
+
+        void onModeOff(CCObject* sender);
+        void onModeRecord(CCObject* sender);
+        void onModePlay(CCObject* sender);
+        void onSave(CCObject* sender);
+        void onSelect(CCObject* sender);
+        void onDelete(CCObject* sender);
+        void onExport(CCObject* sender);
+        void onImport(CCObject* sender);
+};
+
+SUBMIT_CATEGORY("Macro", MacroNode)

@@ -75,7 +75,16 @@ class MacroManager
         bool exportTo(asp::fs::Path const& path);
         bool importFrom(asp::fs::Path const& path);
 
+        // macros con nombre (pestaña Macro)
+        std::string getSelectedName();
+        void setSelectedName(std::string name);
+        std::vector<std::string> getNames();
+        bool saveNamed(std::string name);
+        bool loadNamed(std::string name);
+        void removeNamed(std::string name);
+
     protected:
+        std::string selectedName = "";
         std::string serialize();
         bool parse(std::string const& text);
 };

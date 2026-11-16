@@ -16,7 +16,7 @@ class MacroRecorder : public Module
         {
             setName("Macro Recorder");
             setID("macro-recorder");
-            setCategory("Level");
+            setCategory("Macro");
             setDescription("Records your inputs in the level so they can be replayed later. The macro is saved automatically when you finish or leave the level. If Macro Player is also on, the player wins");
             setSafeModeTrigger(SafeModeTrigger::Attempt);
         }
@@ -29,7 +29,7 @@ class MacroPlayer : public Module
         {
             setName("Macro Player");
             setID("macro-player");
-            setCategory("Level");
+            setCategory("Macro");
             setDescription("Replays the macro saved for this level. Your own inputs are ignored while it is on");
             setSafeModeTrigger(SafeModeTrigger::Attempt);
         }
@@ -57,7 +57,7 @@ class MacroExport : public ButtonModule
         {
             setName("Export Macro");
             setID("macro-export");
-            setCategory("Level");
+            setCategory("Macro");
             setDescription("Saves the current macro to a file you choose, so you can keep it or share it");
         }
 
@@ -109,7 +109,7 @@ class MacroImport : public ButtonModule
         {
             setName("Import Macro");
             setID("macro-import");
-            setCategory("Level");
+            setCategory("Macro");
             setDescription("Loads a macro file and saves it for the level you are in. Open the level first");
         }
 
@@ -204,7 +204,12 @@ static void macroSaveIfRecording(PlayLayer* pl)
     int id = macroLevelID(pl);
 
     if (mgr->getLoadedLevel() == id && mgr->getInputCount() > 0)
+    {
         mgr->save(id);
+
+        if (!mgr->getSelectedName().empty())
+            mgr->saveNamed(mgr->getSelectedName());
+    }
 }
 
 class $modify (MacroBaseGameLayer, GJBaseGameLayer)
@@ -276,6 +281,10 @@ class $modify (MacroPlayLayer, PlayLayer)
         auto mgr = MacroManager::get();
         mgr->clear();
         mgr->setLoadedLevel(-1);
+
+        // macro elegido en la pestaña Macro: cargarlo para este nivel
+        if (currentMacroState() == MacroState::Playback && !mgr->getSelectedName().empty() && mgr->loadNamed(mgr->getSelectedName()))
+            mgr->setLoadedLevel(macroLevelID(this));
 
         auto label = CCLabelBMFont::create("", "bigFont.fnt");
         label->setScale(0.35f);

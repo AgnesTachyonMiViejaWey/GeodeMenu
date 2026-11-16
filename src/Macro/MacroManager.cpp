@@ -1,5 +1,6 @@
 #include "MacroManager.hpp"
 #include <algorithm>
+#include <cctype>
 #include <sstream>
 
 using namespace geode::prelude;
@@ -249,4 +250,74 @@ bool MacroManager::importFrom(asp::fs::Path const& path)
         return false;
 
     return parse(res.unwrap());
+}
+
+std::string MacroManager::getSelectedName()
+{
+    return selectedName;
+}
+
+void MacroManager::setSelectedName(std::string name)
+{
+    selectedName = name;
+}
+
+std::vector<std::string> MacroManager::getNames()
+{
+    return Mod::get()->getSavedValue<std::vector<std::string>>("macro-names", {});
+}
+
+bool MacroManager::saveNamed(std::string name)
+{
+    if (name.empty() || inputs.empty())
+        return false;
+
+    // solo letras, números, guiones y espacios (es nombre de archivo)
+    for (auto& c : name)
+    {
+        if (!(std::isalnum((unsigned char)c) || c == '-' || c == '_' || c == ' '))
+            c = '_';
+    }
+
+    auto path = Mod::get()->getSaveDir() / fmt::format("named-{}.qmacro", name);
+
+    if (!file::writeString(path, serialize()).isOk())
+        return false;
+
+    auto names = getNames();
+
+    if (std::find(names.begin(), names.end(), name) == names.end())
+    {
+        names.push_back(name);
+        Mod::get()->setSavedValue<std::vector<std::string>>("macro-names", names);
+    }
+
+    selectedName = name;
+    return true;
+}
+
+bool MacroManager::loadNamed(std::string name)
+{
+    auto path = Mod::get()->getSaveDir() / fmt::format("named-{}.qmacro", name);
+
+    if (!path.exists())
+        return false;
+
+    auto res = file::readString(path);
+
+    if (!res.isOk() || !parse(res.unwrap()))
+        return false;
+
+    selectedName = name;
+    return true;
+}
+
+void MacroManager::removeNamed(std::string name)
+{
+    auto names = getNames();
+    names.erase(std::remove(names.begin(), names.end(), name), names.end());
+    Mod::get()->setSavedValue<std::vector<std::string>>("macro-names", names);
+
+    if (selectedName == name)
+        selectedName = "";
 }
