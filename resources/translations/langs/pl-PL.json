@@ -53,6 +53,8 @@
             "cps": "cps"
         },
         "ui": {
+            "macro-inputs": "inputs",
+            "macro-tps-mismatch": "TPS mismatch",
             "coming-soon": "Już wkrótce",
             "themes-edit-button": "Edytuj kolory",
             "ok-button": "<bm>OK",
@@ -230,6 +232,8 @@
             "kCCTransitionPageTurn": "Obrót Kartki"
         },
         "names": {
+            "macro-recorder": "Macro Recorder",
+            "macro-player": "Macro Player",
             "internal/open-menu": "Menu Keybindu:",
             "safe-mode": "Tryb bezpieczny",
             "safe-mode/text": "Tekst",
@@ -495,6 +499,8 @@
             "shortcut/crash-the-game": "Zcrashuj grę (zamknij)"
         },
         "descriptions": {
+            "macro-recorder": "Records your inputs so they can be replayed later. It saves automatically when you finish or leave the level. Works in practice mode, even with Speedhack",
+            "macro-player": "Replays the macro saved for this level. Your own inputs are ignored while it is on. Use the same TPS you recorded with",
             "internal/open-menu": "",
             "safe-mode": "Wyłącza zapisywanie postępu wszystkich poziomów",
             "safe-mode/text": "",

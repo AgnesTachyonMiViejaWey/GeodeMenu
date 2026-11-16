@@ -57,6 +57,8 @@
             "fps": "fps"
         },
         "ui": {
+            "macro-inputs": "inputs",
+            "macro-tps-mismatch": "TPS distinto",
             "coming-soon": "Muy Pronto",
             "themes-edit-button": "Editar Colores",
             "ok-button": "<bm>OK",
@@ -128,6 +130,8 @@
             "override-fine-outline-label": "Sobreescribir Contorno Fino"
         },
         "names": {
+            "macro-recorder": "Grabador de Macros",
+            "macro-player": "Reproductor de Macros",
             "create-custom-rewards": "Crear Premios Customizados",
             "shortcuts/open-graphics-settings":"Abrir Configuraciones de Graficos",
             "shortcuts/toggle-practice": "Activar/Desactivar el modo práctica.",
@@ -313,6 +317,8 @@
             "trail-cutting/fps": "Actualizar FPS:"
         },
         "descriptions": {
+            "macro-recorder": "Graba tus inputs para poder reproducirlos después. Se guarda solo al terminar o salir del nivel. Funciona en modo práctica, incluso con Speedhack",
+            "macro-player": "Reproduce el macro guardado de este nivel. Tus propios toques se ignoran mientras está activo. Usa los mismos TPS con los que grabaste",
             "create-custom-rewards": "Genera un premio que puedes customizar.",
             "shortcuts/open-graphics-settings":"Abre las opciones de gráficos del juego.",
             "shortcuts/toggle-practice": "Activa/Desactiva el modo práctica.",

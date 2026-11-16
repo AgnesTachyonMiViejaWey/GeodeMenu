@@ -43,6 +43,8 @@
             "cps": "cps"
         },
         "ui": {
+            "macro-inputs": "inputs",
+            "macro-tps-mismatch": "TPS mismatch",
             "coming-soon": "Çok Yakında",
             "themes-edit-button": "Renkleri Düzenle",
             "ok-button": "Tamam",
@@ -245,6 +247,8 @@
             "kCCTransitionPageTurn": "Sayfa Çevirme"
         },
         "names": {
+            "macro-recorder": "Macro Recorder",
+            "macro-player": "Macro Player",
             "internal/open-menu": "Menü Tuş Ataması:",
             "safe-mode": "Güvenli Mod",
             "safe-mode/text": "Yazı",
@@ -529,6 +533,8 @@
             "startpos-switcher/layout": "Düzeni Düzenle"
         },
         "descriptions": {
+            "macro-recorder": "Records your inputs so they can be replayed later. It saves automatically when you finish or leave the level. Works in practice mode, even with Speedhack",
+            "macro-player": "Replays the macro saved for this level. Your own inputs are ignored while it is on. Use the same TPS you recorded with",
             "internal/open-menu": "",
             "safe-mode": "Bütün seviyelerin ilerlemesini ve istatistiklerini durdurur.",
             "safe-mode/text": "",

@@ -42,6 +42,8 @@
             "cps": "Cps"
         },
         "ui": {
+            "macro-inputs": "inputs",
+            "macro-tps-mismatch": "TPS mismatch",
             "coming-soon": "Segera Hadir",
             "themes-edit-button": "Edit Warna",
             "ok-button": "OK",
@@ -221,6 +223,8 @@
             "kCCTransitionPageTurn": "Balik Halaman"
         },
         "names": {
+            "macro-recorder": "Macro Recorder",
+            "macro-player": "Macro Player",
             "internal/open-menu": "Tombol Menu:",
             "safe-mode": "Mode Aman",
             "safe-mode/text": "Teks",
@@ -495,6 +499,8 @@
             "shortcut/back-button": "Tombol Kembali Universal"
         },
         "descriptions": {
+            "macro-recorder": "Records your inputs so they can be replayed later. It saves automatically when you finish or leave the level. Works in practice mode, even with Speedhack",
+            "macro-player": "Replays the macro saved for this level. Your own inputs are ignored while it is on. Use the same TPS you recorded with",
             "internal/open-menu": "",
             "safe-mode": "Menonaktifkan Semua Progress Level Dan Stats",
             "safe-mode/text": "",

@@ -41,6 +41,8 @@
             "tps": "tps"
         },
         "ui": {
+            "macro-inputs": "inputs",
+            "macro-tps-mismatch": "TPS mismatch",
             "coming-soon": "Laster",
             "themes-edit-button": "Koloreak Editatu",
             "ok-button": "Ongi",
@@ -164,6 +166,8 @@
             "success": "Maila <cg>arrakastaz</c> bikoiztuta!"
         },
         "names": {
+            "macro-recorder": "Macro Recorder",
+            "macro-player": "Macro Player",
             "internal/open-menu": "Menuaren Lasterbidea:",
             "safe-mode": "Modu Segurua",
             "safe-mode/text": "Testua",
@@ -399,6 +403,8 @@
             "fast-chests": "Altxor Bizkorrak"
         },
         "descriptions": {
+            "macro-recorder": "Records your inputs so they can be replayed later. It saves automatically when you finish or leave the level. Works in practice mode, even with Speedhack",
+            "macro-player": "Replays the macro saved for this level. Your own inputs are ignored while it is on. Use the same TPS you recorded with",
             "internal/open-menu": "",
             "safe-mode": "Maila-aurrerapenik eta estadistikak itzaltzen ditu",
             "safe-mode/text": "",

@@ -52,6 +52,8 @@
             "tps": "tps"
         },
         "ui": {
+            "macro-inputs": "inputs",
+            "macro-tps-mismatch": "TPS mismatch",
             "coming-soon": "A Venir",
             "themes-edit-button": "Modifier Les Couleurs",
             "ok-button": "OK",
@@ -192,6 +194,8 @@
             "profiles-title": "Profile d'effets sur les Icônes"
         },
         "names": {
+            "macro-recorder": "Macro Recorder",
+            "macro-player": "Macro Player",
             "internal/open-menu": "Menu des touches:",
             "safe-mode": "Mode Sécurisé",
             "safe-mode/text": "Texte",
@@ -430,6 +434,8 @@
             "popup-ui-scale": "Echelle HUD:"
         },
         "descriptions": {
+            "macro-recorder": "Records your inputs so they can be replayed later. It saves automatically when you finish or leave the level. Works in practice mode, even with Speedhack",
+            "macro-player": "Replays the macro saved for this level. Your own inputs are ignored while it is on. Use the same TPS you recorded with",
             "internal/open-menu": "",
             "safe-mode": "Retire les progrès et statistiques dans les niveaux",
             "safe-mode/text": "Safe Mode",

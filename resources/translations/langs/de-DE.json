@@ -63,6 +63,8 @@
             "cps": "cps"
         },
         "ui": {
+            "macro-inputs": "inputs",
+            "macro-tps-mismatch": "TPS mismatch",
             "coming-soon": "Kommt bald",
             "themes-edit-button": "Bearbeite Farben",
             "ok-button": "<bm>OK",
@@ -203,6 +205,8 @@
             "profiles-title": "Charakter-Effekt Profile"
         },
         "names": {
+            "macro-recorder": "Macro Recorder",
+            "macro-player": "Macro Player",
             "internal/open-menu": "Menü Tastenkombination:",
             "safe-mode": "'Sicher'-Modus",
             "safe-mode/text": "Text",
@@ -485,6 +489,8 @@
 
         },
         "descriptions": {
+            "macro-recorder": "Records your inputs so they can be replayed later. It saves automatically when you finish or leave the level. Works in practice mode, even with Speedhack",
+            "macro-player": "Replays the macro saved for this level. Your own inputs are ignored while it is on. Use the same TPS you recorded with",
             "internal/open-menu": "",
             "safe-mode": "Deaktiviert Fortschritte in Leveln",
             "safe-mode/text": "",

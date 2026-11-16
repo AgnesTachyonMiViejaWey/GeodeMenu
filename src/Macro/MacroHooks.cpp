@@ -1,6 +1,7 @@
 #include "MacroManager.hpp"
 #include "../Client/Module.hpp"
 #include "../Client/InputModule.hpp"
+#include <LocalisationManager.hpp>
 #include <Geode/modify/GJBaseGameLayer.hpp>
 #include <Geode/modify/PlayLayer.hpp>
 
@@ -232,7 +233,7 @@ class $modify (MacroPlayLayer, PlayLayer)
             case MacroState::Recording:
                 label->setVisible(true);
                 label->setColor({255, 80, 80});
-                label->setString(fmt::format("REC  {} inputs", mgr->getInputCount()).c_str());
+                label->setString(fmt::format("REC  {} {}", mgr->getInputCount(), LocalisationManager::get()->getLocalisedString("ui/macro-inputs")).c_str());
                 break;
 
             case MacroState::Playback:
@@ -241,7 +242,7 @@ class $modify (MacroPlayLayer, PlayLayer)
 
                 label->setVisible(true);
                 label->setColor(mismatch ? ccColor3B{255, 190, 60} : ccColor3B{80, 255, 120});
-                label->setString(fmt::format("PLAY  {}/{}{}", mgr->getCursor(), mgr->getInputCount(), mismatch ? "  (TPS distinto)" : "").c_str());
+                label->setString(fmt::format("PLAY  {}/{}{}", mgr->getCursor(), mgr->getInputCount(), mismatch ? fmt::format("  ({})", LocalisationManager::get()->getLocalisedString("ui/macro-tps-mismatch")) : std::string("")).c_str());
                 break;
             }
 

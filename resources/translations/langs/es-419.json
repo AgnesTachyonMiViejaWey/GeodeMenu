@@ -72,6 +72,8 @@
             "cps": "cps"
         },
         "ui": {
+            "macro-inputs": "inputs",
+            "macro-tps-mismatch": "TPS distinto",
             "coming-soon": "Próximamente",
             "themes-edit-button": "Editar colores",
             "ok-button": "Aceptar",
@@ -274,6 +276,8 @@
             "kCCTransitionPageTurn": "Pasar página"
         },
         "names": {
+            "macro-recorder": "Grabador de Macros",
+            "macro-player": "Reproductor de Macros",
             "internal/open-menu": "Atajo para el menú:",
             "safe-mode": "Modo seguro",
             "safe-mode/text": "Texto",
@@ -558,6 +562,8 @@
 	          "startpos-switcher/layout": "Mover controles"
         },
         "descriptions": {
+            "macro-recorder": "Graba tus inputs para poder reproducirlos después. Se guarda solo al terminar o salir del nivel. Funciona en modo práctica, incluso con Speedhack",
+            "macro-player": "Reproduce el macro guardado de este nivel. Tus propios toques se ignoran mientras está activo. Usa los mismos TPS con los que grabaste",
             "internal/open-menu": "",
             "safe-mode": "Desactiva todo el progreso y las estadísticas del nivel",
             "safe-mode/text": "",
