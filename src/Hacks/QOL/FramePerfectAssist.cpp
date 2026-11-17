@@ -29,7 +29,7 @@ class FramePerfectWindow : public InputModule
         {
             setID("qol-frame-perfect/window");
 
-            setDefaultString("6");
+            setDefaultString("8");
             setPlaceholderString("Ticks");
             setHint("ticks");
 
@@ -65,6 +65,7 @@ class $modify (FramePerfectLayer, GJBaseGameLayer)
     {
         bool held[2] = { false, false };
         unsigned int pressTick[2] = { 0, 0 };
+        bool pending[2] = { false, false };
         bool injecting = false;
     };
 
@@ -76,7 +77,10 @@ class $modify (FramePerfectLayer, GJBaseGameLayer)
             m_fields->held[i] = down;
 
             if (down)
+            {
                 m_fields->pressTick[i] = m_gameState.m_currentProgress;
+                m_fields->pending[i] = true;
+            }
         }
 
         GJBaseGameLayer::handleButton(down, button, isPlayer1);
@@ -93,13 +97,19 @@ class $modify (FramePerfectLayer, GJBaseGameLayer)
                 if (!FramePerfectEarly::get()->getRealEnabled())
                     continue;
 
-                if (!player || player->m_isDead)
+                if (!player || player->m_isDead || !m_fields->pending[i])
                     continue;
 
                 unsigned int now = m_gameState.m_currentProgress;
-                unsigned int since = now - m_fields->pressTick[i];
 
-                if (now > m_fields->pressTick[i] && since <= assistTicks())
+                // el nivel se reinició (el tiempo volvió atrás) o la ventana ya pasó
+                if (now < m_fields->pressTick[i] || now - m_fields->pressTick[i] > assistTicks())
+                {
+                    m_fields->pending[i] = false;
+                    continue;
+                }
+
+                if (now > m_fields->pressTick[i])
                 {
                     m_fields->injecting = true;
                     GJBaseGameLayer::handleButton(false, 1, i == 0);
