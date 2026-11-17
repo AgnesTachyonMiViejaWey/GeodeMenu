@@ -1,6 +1,7 @@
 #include "../../Client/Module.hpp"
 #include <Geode/modify/PlayLayer.hpp>
-#include <ctime>
+#include <Geode/modify/LevelInfoLayer.hpp>
+#include <Geode/utils/general.hpp>
 
 using namespace geode::prelude;
 
@@ -18,29 +19,42 @@ class cls : public Module \
 }; \
 SUBMIT_HACK(cls);
 
-QOL_MODULE(QolFPS, "qol-fps", "FPS Counter", "Shows your current FPS in the corner of the screen")
-QOL_MODULE(QolClock, "qol-clock", "Clock", "Shows the current time of day while playing")
-QOL_MODULE(QolTimer, "qol-timer", "Session Timer", "Shows how long you have been in this level")
-QOL_MODULE(QolAttempts, "qol-attempts", "Session Attempts", "Shows how many attempts you did since opening this level")
-QOL_MODULE(QolBest, "qol-best", "Session Best", "Shows your best percentage since opening this level")
-QOL_MODULE(QolPracticeDeaths, "qol-practice-deaths", "Practice Deaths", "Counts the deaths you have in practice mode in this level")
+QOL_MODULE(QolCopyID, "qol-copy-id", "Auto Copy Level ID", "Copies the level ID to your clipboard whenever you open a level page")
+QOL_MODULE(QolMutePractice, "qol-mute-practice", "Mute Music In Practice", "Turns the level music off while you are in practice mode")
+QOL_MODULE(QolMuteDeath, "qol-mute-death", "Mute Music On Death", "Silences the music when you die, until you respawn")
+
+static void qolSetMusicVolume(bool muted)
+{
+    auto engine = FMODAudioEngine::get();
+
+    if (!engine)
+        return;
+
+    engine->setBackgroundMusicVolume(muted ? 0.f : GameManager::get()->m_bgVolume);
+}
+
+class $modify (QolLevelInfo, LevelInfoLayer)
+{
+    bool init(GJGameLevel* level, bool challenge)
+    {
+        if (!LevelInfoLayer::init(level, challenge))
+            return false;
+
+        if (QolCopyID::get()->getRealEnabled() && level && level->m_levelID.value() > 0)
+            geode::utils::clipboard::write(std::to_string(level->m_levelID.value()));
+
+        return true;
+    }
+};
 
 class $modify (QolPlayLayer, PlayLayer)
 {
-    struct Fields
+    void togglePracticeMode(bool practice)
     {
-        CCLabelBMFont* label = nullptr;
-        float elapsed = 0.f;
-        float fps = 0.f;
-        int attempts = 1;
-        int practiceDeaths = 0;
-        float best = 0.f;
-    };
+        PlayLayer::togglePracticeMode(practice);
 
-    void resetLevel()
-    {
-        PlayLayer::resetLevel();
-        m_fields->attempts++;
+        if (QolMutePractice::get()->getRealEnabled() || !practice)
+            qolSetMusicVolume(practice && QolMutePractice::get()->getRealEnabled());
     }
 
     void destroyPlayer(PlayerObject* p0, GameObject* p1)
@@ -49,77 +63,21 @@ class $modify (QolPlayLayer, PlayLayer)
 
         PlayLayer::destroyPlayer(p0, p1);
 
-        if (!wasDead && m_player1 && m_player1->m_isDead)
-        {
-            m_fields->best = std::max(m_fields->best, (float)getCurrentPercent());
-
-            if (m_isPracticeMode)
-                m_fields->practiceDeaths++;
-        }
+        if (!wasDead && m_player1 && m_player1->m_isDead && QolMuteDeath::get()->getRealEnabled())
+            qolSetMusicVolume(true);
     }
 
-    void postUpdate(float dt)
+    void resetLevel()
     {
-        PlayLayer::postUpdate(dt);
+        PlayLayer::resetLevel();
 
-        auto f = m_fields.self();
+        bool keepMuted = m_isPracticeMode && QolMutePractice::get()->getRealEnabled();
+        qolSetMusicVolume(keepMuted);
+    }
 
-        f->elapsed += dt;
-
-        if (dt > 0.f)
-            f->fps = f->fps * 0.9f + (1.f / dt) * 0.1f;
-
-        std::string text = "";
-
-        if (QolFPS::get()->getRealEnabled())
-            text += fmt::format("FPS {}\n", (int)(f->fps + 0.5f));
-
-        if (QolClock::get()->getRealEnabled())
-        {
-            std::time_t t = std::time(nullptr);
-            char buf[16] = {0};
-            std::strftime(buf, sizeof(buf), "%H:%M", std::localtime(&t));
-            text += fmt::format("{}\n", buf);
-        }
-
-        if (QolTimer::get()->getRealEnabled())
-        {
-            int s = (int)f->elapsed;
-            text += fmt::format("{:02}:{:02}\n", s / 60, s % 60);
-        }
-
-        if (QolAttempts::get()->getRealEnabled())
-            text += fmt::format("Att {}\n", f->attempts);
-
-        if (QolBest::get()->getRealEnabled())
-            text += fmt::format("Best {}%\n", (int)std::max(f->best, (float)getCurrentPercent()));
-
-        if (QolPracticeDeaths::get()->getRealEnabled())
-            text += fmt::format("Prac {}\n", f->practiceDeaths);
-
-        if (text.empty())
-        {
-            if (f->label)
-                f->label->setVisible(false);
-
-            return;
-        }
-
-        if (!f->label && m_uiLayer)
-        {
-            f->label = CCLabelBMFont::create("", "bigFont.fnt");
-            f->label->setScale(0.35f);
-            f->label->setOpacity(170);
-            f->label->setAnchorPoint({0.f, 1.f});
-            f->label->setAlignment(kCCTextAlignmentLeft);
-            f->label->setPosition(ccp(8, CCDirector::get()->getWinSize().height - 8));
-            m_uiLayer->addChild(f->label, 100);
-        }
-
-        if (f->label)
-        {
-            f->label->setVisible(true);
-            f->label->setString(text.c_str());
-        }
+    void onQuit()
+    {
+        qolSetMusicVolume(false);
+        PlayLayer::onQuit();
     }
 };
