@@ -134,7 +134,7 @@ class $modify (FramePerfectLayer, GJBaseGameLayer)
                 if (!FramePerfectEarly::get()->getRealEnabled())
                     continue;
 
-                if (!player || !m_fields->held[i] || player->m_isDead)
+                if (!player || player->m_isDead)
                     continue;
 
                 unsigned int now = m_gameState.m_currentProgress;
@@ -145,6 +145,11 @@ class $modify (FramePerfectLayer, GJBaseGameLayer)
                     m_fields->injecting = true;
                     GJBaseGameLayer::handleButton(false, 1, i == 0);
                     GJBaseGameLayer::handleButton(true, 1, i == 0);
+
+                    // si ya soltaste el botón, el click repetido también se suelta
+                    if (!m_fields->held[i])
+                        GJBaseGameLayer::handleButton(false, 1, i == 0);
+
                     m_fields->injecting = false;
                 }
             }
