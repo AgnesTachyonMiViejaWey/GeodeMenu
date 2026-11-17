@@ -57,10 +57,6 @@ class $modify (FramePerfectLayer, GJBaseGameLayer)
                 if (!player || !m_fields->held[i] || player->m_isDead)
                     continue;
 
-                // en modos de mantener (nave, ufo, wave, swing) repetir el click no sirve
-                if (player->m_isShip || player->m_isBird || player->m_isDart || player->m_isSwing)
-                    continue;
-
                 unsigned int now = m_gameState.m_currentProgress;
                 unsigned int since = now - m_fields->pressTick[i];
 
