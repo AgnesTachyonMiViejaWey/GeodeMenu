@@ -254,6 +254,7 @@
             "kCCTransitionPageTurn": "Page Turn"
         },
         "names": {
+            "qol-frame-perfect": "Frame Perfect Assist",
             "qol-copy-id": "Auto Copy Level ID",
             "qol-mute-practice": "Mute Music In Practice",
             "qol-mute-death": "Mute Music On Death",
@@ -550,6 +551,7 @@
             "startpos-switcher/layout": "Edit Layout"
         },
         "descriptions": {
+            "qol-frame-perfect": "Pro mode: if you click a few ticks too early, the click is repeated until the game accepts it (ground, orb or pad). Makes frame perfect jumps much easier. Turned off while a macro is recording or playing",
             "qol-copy-id": "Copies the level ID to your clipboard whenever you open a level page",
             "qol-mute-practice": "Turns the level music off while you are in practice mode",
             "qol-mute-death": "Silences the music when you die, until you respawn",
