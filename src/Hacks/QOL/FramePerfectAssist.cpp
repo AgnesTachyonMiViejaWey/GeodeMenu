@@ -1,6 +1,9 @@
 #include "../../Client/Module.hpp"
+#include "../../Client/InputModule.hpp"
 #include "../../Macro/MacroManager.hpp"
 #include <Geode/modify/GJBaseGameLayer.hpp>
+#include <Geode/modify/PlayLayer.hpp>
+#include <algorithm>
 
 using namespace geode::prelude;
 
@@ -19,9 +22,31 @@ class FramePerfectAssist : public Module
         }
 };
 
-SUBMIT_HACK(FramePerfectAssist);
+class FramePerfectWindow : public InputModule
+{
+    public:
+        MODULE_SETUP(FramePerfectWindow)
+        {
+            setID("qol-frame-perfect/window");
 
-static constexpr unsigned int ASSIST_TICKS = 6;
+            setDefaultString("6");
+            setPlaceholderString("Ticks");
+            setHint("ticks");
+
+            setStringFilter("1234567890");
+            setMaxCharCount(2);
+        }
+};
+
+SUBMIT_HACK(FramePerfectAssist);
+SUBMIT_OPTION(FramePerfectAssist, FramePerfectWindow);
+
+// ventana configurable: 1 a 30 ticks
+static unsigned int assistTicks()
+{
+    int v = FramePerfectWindow::get()->getStringInt();
+    return (unsigned int)std::clamp(v, 1, 30);
+}
 
 class $modify (FramePerfectLayer, GJBaseGameLayer)
 {
@@ -60,7 +85,7 @@ class $modify (FramePerfectLayer, GJBaseGameLayer)
                 unsigned int now = m_gameState.m_currentProgress;
                 unsigned int since = now - m_fields->pressTick[i];
 
-                if (now > m_fields->pressTick[i] && since <= ASSIST_TICKS)
+                if (now > m_fields->pressTick[i] && since <= assistTicks())
                 {
                     m_fields->injecting = true;
                     GJBaseGameLayer::handleButton(false, 1, i == 0);

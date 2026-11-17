@@ -205,6 +205,7 @@
             "profiles-title": "Efeitos de Icone de Perfil"
         },
         "names": {
+            "qol-frame-perfect/window": "Window (ticks):",
             "qol-frame-step": "Frame Step",
             "qol-frame-perfect": "Frame Perfect Assist",
             "qol-copy-id": "Auto Copy Level ID",
@@ -463,6 +464,7 @@
             "autoclicker/player2/swift": "Click Rapido (Swift)"
         },
         "descriptions": {
+            "qol-frame-perfect/window": "How many ticks early your click is still accepted. Lower is subtler, higher is more forgiving (1-30)",
             "qol-frame-step": "Adds Freeze and Step buttons in the level. Freeze stops the game, Step advances exactly one physics tick. Great for practicing frame perfect sections like Silent Clubstep",
             "qol-frame-perfect": "Pro mode: if you click a few ticks too early, the click is repeated until the game accepts it (ground, orb or pad). Makes frame perfect jumps much easier. Turned off while a macro is recording or playing",
             "qol-copy-id": "Copies the level ID to your clipboard whenever you open a level page",
