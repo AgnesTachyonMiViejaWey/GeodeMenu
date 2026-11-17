@@ -163,6 +163,8 @@
             }
         },
         "names": {
+            "auto-checkpoint": "Auto Checkpoint",
+            "death-counter": "Death Counter",
             "auto-exit-complete": "Auto Exit On Complete",
             "auto-restart-complete": "Auto Restart On Complete",
             "hide-attempts-label": "Hide Attempts Label",
@@ -337,6 +339,8 @@
             "pitch-shifter/music-only": "Тільки музика"
         },
         "descriptions": {
+            "auto-checkpoint": "Places a checkpoint every 2 seconds while in practice mode",
+            "death-counter": "Shows how many times you died in this session of the level",
             "auto-exit-complete": "Leaves the level a moment after you complete it, skipping the end screen",
             "auto-restart-complete": "Restarts the level a moment after you complete it. Overrides Auto Exit",
             "hide-attempts-label": "Hides the Attempt X text at the start of the level",

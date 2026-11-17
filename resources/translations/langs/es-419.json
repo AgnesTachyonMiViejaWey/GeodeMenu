@@ -295,6 +295,8 @@
             "kCCTransitionPageTurn": "Pasar página"
         },
         "names": {
+            "auto-checkpoint": "Checkpoint automático",
+            "death-counter": "Contador de muertes",
             "auto-exit-complete": "Salir al completar",
             "auto-restart-complete": "Reiniciar al completar",
             "hide-attempts-label": "Ocultar texto de intentos",
@@ -586,6 +588,8 @@
 	          "startpos-switcher/layout": "Mover controles"
         },
         "descriptions": {
+            "auto-checkpoint": "Pone un checkpoint cada 2 segundos en modo práctica",
+            "death-counter": "Muestra cuántas veces has muerto en esta sesión del nivel",
             "auto-exit-complete": "Sale del nivel un momento después de completarlo, sin pasar por la pantalla final",
             "auto-restart-complete": "Reinicia el nivel un momento después de completarlo. Tiene prioridad sobre Salir al completar",
             "hide-attempts-label": "Oculta el texto Intento X al inicio del nivel",
