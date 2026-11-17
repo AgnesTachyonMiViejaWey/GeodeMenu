@@ -17,6 +17,7 @@
 ],
     "strings": {
         "categories": {
+            "2.2091": "2.2091",
             "macro": "Macro",
             "level": "Nivel",
             "universal": "Universal",
@@ -241,6 +242,9 @@
             "kCCTransitionPageTurn": "Pasar Página"
         },
         "names": {
+            "auto-exit-complete": "Salir al completar",
+            "auto-restart-complete": "Reiniciar al completar",
+            "hide-attempts-label": "Ocultar texto de intentos",
             "macro-export": "Exportar Macro",
             "macro-import": "Importar Macro",
             "macro-recorder": "Grabador de Macros",
@@ -519,6 +523,9 @@
             "shortcut/back-button": "Botón Atrás Universal"
         },
         "descriptions": {
+            "auto-exit-complete": "Sale del nivel un momento después de completarlo, sin pasar por la pantalla final",
+            "auto-restart-complete": "Reinicia el nivel un momento después de completarlo. Tiene prioridad sobre Salir al completar",
+            "hide-attempts-label": "Oculta el texto Intento X al inicio del nivel",
             "macro-export": "Guarda el macro actual en un archivo que elijas, para conservarlo o compartirlo",
             "macro-import": "Carga un archivo de macro y lo guarda para el nivel en el que estás. Abre el nivel primero",
             "macro-recorder": "Graba tus inputs para poder reproducirlos después. Se guarda solo al terminar o salir del nivel. Funciona en modo práctica, incluso con Speedhack",

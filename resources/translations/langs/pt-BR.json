@@ -18,6 +18,7 @@
     "alt-font-usage": "Forced",
     "strings": {
         "categories": {
+            "2.2091": "2.2091",
             "macro": "Macro",
             "level": "Nível",
             "universal": "Universal",
@@ -203,6 +204,9 @@
             "profiles-title": "Perfis de Efeito de Ícone"
         },
         "names": {
+            "auto-exit-complete": "Auto Exit On Complete",
+            "auto-restart-complete": "Auto Restart On Complete",
+            "hide-attempts-label": "Hide Attempts Label",
             "macro-export": "Export Macro",
             "macro-import": "Import Macro",
             "macro-recorder": "Macro Recorder",
@@ -453,6 +457,9 @@
             "search/options-colour": "Cor de Fundo das Opções:"
         },
         "descriptions": {
+            "auto-exit-complete": "Leaves the level a moment after you complete it, skipping the end screen",
+            "auto-restart-complete": "Restarts the level a moment after you complete it. Overrides Auto Exit",
+            "hide-attempts-label": "Hides the Attempt X text at the start of the level",
             "macro-export": "Saves the current macro to a file you choose, so you can keep it or share it",
             "macro-import": "Loads a macro file and saves it for the level you are in. Open the level first",
             "macro-recorder": "Records your inputs so they can be replayed later. It saves automatically when you finish or leave the level. Works in practice mode, even with Speedhack",

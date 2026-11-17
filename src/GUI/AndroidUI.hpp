@@ -45,6 +45,7 @@ class AndroidUI : public PopupBase, public qolmod::AltMouseDelegate
             "Speedhack",
             "Icon Effects",
             "Macro",
+            "2.2091",
             "Labels",
             "Shortcuts",
             "Config",
