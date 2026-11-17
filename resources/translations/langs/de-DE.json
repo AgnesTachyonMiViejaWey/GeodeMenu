@@ -58,6 +58,7 @@
             "shortcuts": "Abkürzungen"
         },
         "input-hints": {
+            "ticks": "ticks",
             "seconds": "Sekunde/n",
             "semitones": "Halbtöne",
             "fps": "fps",
@@ -225,6 +226,7 @@
             "profiles-title": "Charakter-Effekt Profile"
         },
         "names": {
+            "qol-frame-perfect/late": "Assist Late Clicks",
             "qol-frame-perfect/early": "Assist Early Clicks",
             "qol-frame-perfect/window": "Window (ticks):",
             "qol-frame-step": "Frame Step",
@@ -523,6 +525,7 @@
 
         },
         "descriptions": {
+            "qol-frame-perfect/late": "If the orb or ring just passed, applies your click to it anyway (idea from Dynamic)",
             "qol-frame-perfect/early": "Holds your early click until the orb or pad accepts it",
             "qol-frame-perfect/window": "How many ticks early your click is still accepted. Lower is subtler, higher is more forgiving (1-30)",
             "qol-frame-step": "Adds Freeze and Step buttons in the level. Freeze stops the game, Step advances exactly one physics tick. Great for practicing frame perfect sections like Silent Clubstep",

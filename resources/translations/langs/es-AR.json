@@ -37,6 +37,7 @@
             "shortcuts": "Atajos"
         },
         "input-hints": {
+            "ticks": "ticks",
             "seconds": "seg",
             "semitones": "semitonos",
             "fps": "fps",
@@ -243,6 +244,7 @@
             "kCCTransitionPageTurn": "Pasar Página"
         },
         "names": {
+            "qol-frame-perfect/late": "Asistir clicks tardíos",
             "qol-frame-perfect/early": "Asistir clicks tempranos",
             "qol-frame-perfect/window": "Ventana (ticks):",
             "qol-frame-step": "Avance por frames",
@@ -533,6 +535,7 @@
             "shortcut/back-button": "Botón Atrás Universal"
         },
         "descriptions": {
+            "qol-frame-perfect/late": "Si el orbe o anillo acaba de pasar, aplica tu click en él de todos modos (idea de Dynamic)",
             "qol-frame-perfect/early": "Mantiene tu click anticipado hasta que el orbe o pad lo acepta",
             "qol-frame-perfect/window": "Cuántos ticks antes se acepta tu click. Menos es más sutil, más es más permisivo (1-30)",
             "qol-frame-step": "Agrega botones Freeze y Step en el nivel. Freeze congela el juego y Step avanza exactamente un tick de física. Ideal para practicar secciones de frame perfect como Silent Clubstep",
