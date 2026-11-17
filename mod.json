@@ -1,6 +1,6 @@
 {
 	"geode": "6.0.0-alpha.2",
-	"version": "v3.0.0",
+	"version": "v3.0.1",
 	"gd": {
 		"win": "2.2091",
 		"android": "2.2091",
@@ -9,8 +9,8 @@
 	},
 	"early-load": true,
 	"id": "thesillydoggo.qolmod",
-	"name": "QOLMod",
-	"developer": "TheSillyDoggo",
+	"name": "BetterQOLmod",
+	"developers": ["TheSillyDoggo", "Claude"],
 	"description": "The Best Free Geode Mod Menu!",
 	"links": {
 		"source": "https://github.com/TheSillyDoggo/GeodeMenu",
