@@ -243,6 +243,7 @@
             "kCCTransitionPageTurn": "Balik Halaman"
         },
         "names": {
+            "qol-frame-step": "Frame Step",
             "qol-frame-perfect": "Frame Perfect Assist",
             "qol-copy-id": "Auto Copy Level ID",
             "qol-mute-practice": "Mute Music In Practice",
@@ -530,6 +531,7 @@
             "shortcut/back-button": "Tombol Kembali Universal"
         },
         "descriptions": {
+            "qol-frame-step": "Adds Freeze and Step buttons in the level. Freeze stops the game, Step advances exactly one physics tick. Great for practicing frame perfect sections like Silent Clubstep",
             "qol-frame-perfect": "Pro mode: if you click a few ticks too early, the click is repeated until the game accepts it (ground, orb or pad). Makes frame perfect jumps much easier. Turned off while a macro is recording or playing",
             "qol-copy-id": "Copies the level ID to your clipboard whenever you open a level page",
             "qol-mute-practice": "Turns the level music off while you are in practice mode",
