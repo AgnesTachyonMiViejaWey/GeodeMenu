@@ -46,6 +46,7 @@ class AndroidUI : public PopupBase, public qolmod::AltMouseDelegate
             "Icon Effects",
             "Macro",
             "2.2091",
+            "QOL",
             "Labels",
             "Shortcuts",
             "Config",

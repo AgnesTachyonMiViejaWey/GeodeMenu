@@ -28,6 +28,7 @@
     ],
     "strings": {
         "categories": {
+            "qol": "QOL",
             "2.2091": "2.2091",
             "macro": "Macro",
             "level": "Poziom",
@@ -251,6 +252,12 @@
             "kCCTransitionPageTurn": "Obrót Kartki"
         },
         "names": {
+            "qol-fps": "FPS Counter",
+            "qol-clock": "Clock",
+            "qol-timer": "Session Timer",
+            "qol-attempts": "Session Attempts",
+            "qol-best": "Session Best",
+            "qol-practice-deaths": "Practice Deaths",
             "auto-checkpoint": "Auto Checkpoint",
             "death-counter": "Death Counter",
             "auto-exit-complete": "Auto Exit On Complete",
@@ -525,6 +532,12 @@
             "shortcut/crash-the-game": "Zcrashuj grę (zamknij)"
         },
         "descriptions": {
+            "qol-fps": "Shows your current FPS in the corner of the screen",
+            "qol-clock": "Shows the current time of day while playing",
+            "qol-timer": "Shows how long you have been in this level",
+            "qol-attempts": "Shows how many attempts you did since opening this level",
+            "qol-best": "Shows your best percentage since opening this level",
+            "qol-practice-deaths": "Counts the deaths you have in practice mode in this level",
             "auto-checkpoint": "Places a checkpoint every 2 seconds while in practice mode",
             "death-counter": "Shows how many times you died in this session of the level",
             "auto-exit-complete": "Leaves the level a moment after you complete it, skipping the end screen",

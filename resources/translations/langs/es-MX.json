@@ -36,6 +36,7 @@
     ],
     "strings": {
         "categories": {
+            "qol": "QOL",
             "2.2091": "2.2091",
             "macro": "Macro",
             "level": "Nivel",
@@ -149,6 +150,12 @@
             "override-fine-outline-label": "Sobreescribir Contorno Fino"
         },
         "names": {
+            "qol-fps": "Contador de FPS",
+            "qol-clock": "Reloj",
+            "qol-timer": "Temporizador de sesión",
+            "qol-attempts": "Intentos de sesión",
+            "qol-best": "Mejor de sesión",
+            "qol-practice-deaths": "Muertes en práctica",
             "auto-checkpoint": "Checkpoint automático",
             "death-counter": "Contador de muertes",
             "auto-exit-complete": "Salir al completar",
@@ -343,6 +350,12 @@
             "trail-cutting/fps": "Actualizar FPS:"
         },
         "descriptions": {
+            "qol-fps": "Muestra tus FPS actuales en la esquina de la pantalla",
+            "qol-clock": "Muestra la hora actual mientras juegas",
+            "qol-timer": "Muestra cuánto tiempo llevas en este nivel",
+            "qol-attempts": "Muestra cuántos intentos llevas desde que abriste este nivel",
+            "qol-best": "Muestra tu mejor porcentaje desde que abriste este nivel",
+            "qol-practice-deaths": "Cuenta las muertes que tienes en modo práctica en este nivel",
             "auto-checkpoint": "Pone un checkpoint cada 2 segundos en modo práctica",
             "death-counter": "Muestra cuántas veces has muerto en esta sesión del nivel",
             "auto-exit-complete": "Sale del nivel un momento después de completarlo, sin pasar por la pantalla final",
