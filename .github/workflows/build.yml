@@ -18,12 +18,12 @@ jobs:
       matrix:
         config:
         - name: Windows
-          os: windows-latest
+          os: windows-2022
         - name: Android32
-          os: ubuntu-latest
+          os: ubuntu-24.04
           target: Android32
         - name: Android64
-          os: ubuntu-latest
+          os: ubuntu-24.04
           target: Android64
         # macOS e iOS desactivados: fallan por bindings que faltan en 2.2091 y retrasan el paquete
 
